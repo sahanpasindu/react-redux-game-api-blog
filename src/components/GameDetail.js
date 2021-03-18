@@ -5,38 +5,42 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 const GameDetail = () => {
-  const { screen, game } = useSelector((state) => state.detail);
+  const { screen, game, isLoading } = useSelector((state) => state.detail);
 
   return (
-    <CardShadow>
-      <Detail>
-        <Stats>
-          <div className="rating">
-            <h3>{game.name}</h3>
-            <p>Rating: {game.rating}</p>
-          </div>
-          <Info>
-            <h3>Platforms</h3>
-            <Paltforms>
-              {game.platforms.map((data) => (
-                <h3 key={data.platform.id}>{data.platform.name}</h3>
+    <>
+      {!isLoading && (
+        <CardShadow>
+          <Detail>
+            <Stats>
+              <div className="rating">
+                <h3>{game.name}</h3>
+                <p>Rating: {game.rating}</p>
+              </div>
+              <Info>
+                <h3>Platforms</h3>
+                <Paltforms>
+                  {game.platforms.map((data) => (
+                    <h3 key={data.platform.id}>{data.platform.name}</h3>
+                  ))}
+                </Paltforms>
+              </Info>
+            </Stats>
+            <Media>
+              <img src={game.background_image} alt={game.background_img} />
+            </Media>
+            <Description>
+              <p>{game.description_raw}</p>
+            </Description>
+            <div className="gallery">
+              {screen.results.map((screen) => (
+                <img src={screen.image} alt={screen.image} key={screen.id} />
               ))}
-            </Paltforms>
-          </Info>
-        </Stats>
-        <Media>
-          <img src={game.background_image} alt={game.background_img} />
-        </Media>
-        <Description>
-          <p>{game.description_raw}</p>
-        </Description>
-        <div className="gallery">
-          {screen.results.map((screen) => (
-            <img src={screen.image} alt={screen.image} key={screen.id} />
-          ))}
-        </div>
-      </Detail>
-    </CardShadow>
+            </div>
+          </Detail>
+        </CardShadow>
+      )}
+    </>
   );
 };
 
