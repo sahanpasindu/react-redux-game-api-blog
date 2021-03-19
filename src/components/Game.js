@@ -8,6 +8,8 @@ import { motion } from "framer-motion";
 import { smallImage } from "../util";
 
 const Game = ({ name, released, image, id }) => {
+  // convert path id to string to make transaction animation works, they should be same data type
+  const stringPathId = id.toString();
   // load details
   const dispatch = useDispatch();
 
@@ -17,11 +19,15 @@ const Game = ({ name, released, image, id }) => {
   };
 
   return (
-    <StyledGame onClick={loadDetailHandler}>
+    <StyledGame layoutId={stringPathId} onClick={loadDetailHandler}>
       <Link to={`/game/${id}`}>
-        <h3>{name}</h3>
+        <motion.h3 layoutId={`title ${stringPathId}`}>{name}</motion.h3>
         <p>Release Date : {released}</p>
-        <img src={smallImage(image, 640)} alt={name} />
+        <motion.img
+          layoutId={`image ${stringPathId}`}
+          src={smallImage(image, 640)}
+          alt={name}
+        />
       </Link>
     </StyledGame>
   );
