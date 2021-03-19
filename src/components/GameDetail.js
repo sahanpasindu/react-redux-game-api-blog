@@ -6,6 +6,13 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 // utils
 import { smallImage } from "../util";
+// images
+import playstation from "../img/playstation.svg";
+import steam from "../img/steam.svg";
+import xbox from "../img/xbox.svg";
+import nintendo from "../img/nintendo.svg";
+import apple from "../img/apple.svg";
+import gamepad from "../img/gamepad.svg";
 
 const GameDetail = ({ pathId }) => {
   const history = useHistory();
@@ -17,6 +24,27 @@ const GameDetail = ({ pathId }) => {
       history.push("/");
     }
   };
+
+  // get palfrom images
+  const getPlatfrom = (platform) => {
+    switch (platform) {
+      case "Playstation 4":
+        return playstation;
+      case "Xbox One":
+        return xbox;
+      case "Nintendo Switch":
+        return nintendo;
+      case "macOS":
+        return apple;
+      case "iOS":
+        return apple;
+      case "PC":
+        return steam;
+      default:
+        return gamepad;
+    }
+  };
+
   const { screen, game, isLoading } = useSelector((state) => state.detail);
 
   return (
@@ -33,7 +61,11 @@ const GameDetail = ({ pathId }) => {
                 <h3>Platforms</h3>
                 <Paltforms>
                   {game.platforms.map((data) => (
-                    <h3 key={data.platform.id}>{data.platform.name}</h3>
+                    <img
+                      alt={data.platform.name}
+                      key={data.platform.id}
+                      src={getPlatfrom(data.platform.name)}
+                    ></img>
                   ))}
                 </Paltforms>
               </Info>
@@ -70,6 +102,7 @@ const CardShadow = styled(motion.div)`
   overflow-y: scroll;
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
+  z-index: 5;
   top: 0;
   left: 0;
 
@@ -94,6 +127,7 @@ const Detail = styled(motion.div)`
   position: absolute;
   left: 10%;
   color: black;
+  z-index: 10;
 
   img {
     width: 100%;
