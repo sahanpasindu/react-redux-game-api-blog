@@ -42,9 +42,12 @@ const GlobalStyles = createGlobalStyle`
       text-decoration: none;
       color: "#333";
    }
-
    img{
       display: block;
+   }
+   input{
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
    }
 `;
 
