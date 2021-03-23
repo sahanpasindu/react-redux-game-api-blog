@@ -3,14 +3,15 @@ import { useLocation } from "react-router-dom";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { loadGames } from "../actions/gamesAction";
+// animation
+import { fadeIn } from "../animations";
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+// styles
+import styled from "styled-components";
 
 // components
 import Game from "../components/Game";
 import GameDetail from "../components/GameDetail";
-
-// styles
-import styled from "styled-components";
-import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 
 const Home = () => {
   // get the current location
@@ -28,7 +29,12 @@ const Home = () => {
     (state) => state.games
   );
   return (
-    <GameList className="home">
+    <GameList
+      variants={fadeIn}
+      initial="hidden"
+      animate="show"
+      className="home"
+    >
       <AnimateSharedLayout type="crossfade">
         <AnimatePresence>
           {pathId && <GameDetail pathId={pathId} />}
